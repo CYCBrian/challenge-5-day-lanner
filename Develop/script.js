@@ -1,6 +1,8 @@
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
+$(document).ready(function(){
+
 $(function () {
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
@@ -9,29 +11,44 @@ $(function () {
   // time-block containing the button that was clicked? How might the id be
   // useful when saving the description in local storage?
   //
-  // TODO: Add code to apply the past, present, or future class to each time
-  // block by comparing the id to the current hour. HINTS: How can the id
-  // attribute of each time-block be used to conditionally add or remove the
-  // past, present, and future classes? How can Day.js be used to get the
-  // current hour in 24-hour time?
-  var currentHour = dayjs().hour()
-  $(".time-block").each(function() {
-    var blockHour = parseInt($(this).attr("id").split("-")[1]);
-    if (blockHour < currentHour) {
-      $(this).addClass("past");
-    } else if (blockHour === currentHour) {
-      $(this).addClass("present");
-    } else {
-      $(this).addClass("future");
-    }
-  });
+
+// To change the color of each time block based on the current hour of the day.
+  // Create a function that will handle the background color change of each time block.
+  function hourlyColorUpdate() {
+    // Initialize a variable and give it a value of the current hour using dayjs
+    var currentHour = dayjs().hour();
+    // Create a function that will loop through each of the time blocks
+    $(".time-block").each(function() {
+      // Initialize a variable that will get the value of the time blocks' id by splitting the id at the hyphen, thereby creating a array, and using the 2nd value of the array.
+      var blockHour = parseInt($(this).attr("id").split("-")[1]);
+      // If the value of blockHour is smaller than the value of currentHour, it will add the css class "past" to the .time-block, turning it grey.
+      if (blockHour < currentHour) {
+        $(this).addClass("past");
+      // If the value of blockHour is equal to the value of currentHour, it will add the css class "present" to the .time-block, turning it red.
+      } else if (blockHour === currentHour) {
+        $(this).addClass("present");
+      // Otherwise, it will add the css class "future" to the .time-block, turning it green.
+      } else {
+        $(this).addClass("future");
+      }
+    });
+  };
+  // Run the function that we just created.
+  hourlyColorUpdate();
+  // set the function so that it only runs once every hour.
+  setInterval(hourlyColorUpdate, 60 * 60 * 1000);
+
   
   //
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
   //
-  // TODO: Add code to display the current date in the header of the page.
+
+
+// To create a display that will show the current day of the week.
+  // Initialize a variable that will capture the day of the week and format it to be presented as a word.
   var currentDay = dayjs().format("dddd");
+  // Targeting the id currentDay, we give it text content using string literal.
   $("#currentDay").text(`Oh it's you... Anyways, today is ${currentDay}.`);
-});
+})})
