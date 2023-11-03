@@ -4,6 +4,7 @@
 
 $(document).ready(function(){
 
+
 // To save users' input to local storage.
   // Create a function that saves users' input
   function saveFunction(){
@@ -16,10 +17,6 @@ $(document).ready(function(){
   };
   // Create an event listener that runs the function we just created when users click the save button.
   $(".saveBtn").on("click", saveFunction);
-
-
-
-
 
 
 // To change the color of each time block based on the current hour of the day.
@@ -53,7 +50,8 @@ $(document).ready(function(){
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
 
-// To create a display that will show the current day of the week.
+
+// To display the current day of the week.
   // Create a function that will handle the display
   function dateDisplay(){
     // Initialize a variable that will capture the day of the week, month and day of the week and format it to be presented as a word, value, value.
