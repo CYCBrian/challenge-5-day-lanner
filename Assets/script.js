@@ -1,7 +1,4 @@
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
-
+// Wrap all code inside the this function to ensure that the functions within only execute after the browser has finished rendering all the elements in the HTML.
 $(document).ready(function(){
 
 
@@ -45,10 +42,22 @@ $(document).ready(function(){
   // Set the function so that it only runs once every hour.
   setInterval(hourlyColorUpdate, 60 * 60 * 1000);
 
-  
-  // TODO: Add code to get any user input that was saved in localStorage and set
-  // the values of the corresponding textarea elements. HINT: How can the id
-  // attribute of each time-block be used to do this?
+
+// To retrieve user input that was save in localStorage via saveFunction and set the value of the corresponding textarea elements.
+  // Create a function that will handle the retrieval and display
+  function getFunction(){
+    // Iterate over each element with the class name "time-block" and perform a callback function
+    $(".time-block").each( function() {
+      // Initialize a variable that captures all elements with an id as the key.
+      var key = $(this).attr("id");
+      // Initialize variable that retrieves the corresponding value from localStorage base on the element's ID
+      var value = localStorage.getItem(key)
+      // Set the value of the child elements with the class name "description" to the retrieve value/
+      $(this).children(".description").val(value);
+    })
+  }
+  // Run the function we just created.
+  getFunction();
 
 
 // To display the current day of the week.
